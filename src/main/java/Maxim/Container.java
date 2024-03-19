@@ -63,6 +63,25 @@ public class Container {
         }
     }
 
+    public int set(int index, int value)
+    {
+        int prev_value = 0;
+        if (this.head == null || index < 0 || index > this.getSize()) 
+            throw new IndexOutOfBoundsException();
+        else
+        {
+            Node current_node = this.getHead();
+            int current_index = 0;
+            while (current_index != index && current_node != null) {
+                current_index++;
+                current_node = current_node.getNext();
+            }
+            prev_value = current_node.getValue();
+            current_node.setValue(value);
+        }   
+        return prev_value;     
+    }
+
     public int remove(int index) {
         int value;
         if (this.getHead() == null || index > this.getSize() || index < 0) {
@@ -142,6 +161,63 @@ public class Container {
             }
         } 
         return is_equal;
+    }
+
+    public int get(int index) {
+        int value = 0;
+        if (this.getHead() == null || index > this.getSize() || index < 0)
+            throw new IndexOutOfBoundsException();
+        else {
+            Node current_node = this.getHead();
+            int current_index = 0;
+            while (current_index != index && current_node != null) {
+                current_index++;
+                current_node = current_node.getNext();
+            }
+            if (current_index == index)
+                value = current_node.getValue();
+        }
+        return value;
+    }
+
+    public int indexOf(int value)
+    {
+        int index = -1;
+        if (this.getHead() != null && this.getSize() > 0)
+        {
+            Node current_node = this.getHead();
+            int current_index = 0;
+            while (current_node != null && current_node.getValue() != value)
+            {
+                current_index++;
+                current_node = current_node.getNext();
+            }
+            if (current_node != null && current_node.getValue() == value)
+                index = current_index;
+        }
+        return index;
+    }
+
+    public int lastIndexOf(int value)
+    {
+        int index = -1;
+        if (this.getHead() != null && this.getSize() > 0)
+        {
+            Node current_node = this.getHead();
+            int current_index = 0;
+            while (current_node != null)
+            {
+                if (current_node.getValue() == value)
+                    index = current_index;
+                current_index++;
+                current_node = current_node.getNext();
+            }
+        }
+        return index;
+    }
+
+    public boolean  isEmpty() {
+        return this.size == 0;
     }
 
     @Override
