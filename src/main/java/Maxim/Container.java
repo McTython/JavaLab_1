@@ -1,28 +1,52 @@
+/** 
+ * Represents a container that holds a linked list of integer values.
+ * @autor Максим Есаков
+ * @version 1.0
+*/
 package Maxim;
 
 public class Container {
     Node head;
     int size;
 
+    /**
+     * Constructs an empty Container
+     */
     Container() {
         this.head = null;
         this.size = 0;
     }
 
+    /**
+     * Constructs a Container by copying another Container
+     * @param container - the Container to copy
+     */
     Container(Container container)
     {
         this.head = container.getHead();
         this.size = container.getSize();
     }
 
+    /**
+     * Returns the head node of the list.
+     * @return the head node of the list
+     */
     private Node getHead() {
         return this.head;
     }
 
+    /**
+     * Returns the number of elements in this list
+     * @return the number of elements in this list
+     */
     public int getSize() {
         return this.size;
     }
 
+    /**
+     * Appends the specified element to the end of this list
+     * @param value - value to be appended to this list
+     */
     public void add(int value) {
         Node new_node = new Node(value);
         this.size++;
@@ -39,6 +63,12 @@ public class Container {
         }
     }
 
+    /**
+     * Inserts the specified element at the specified position in this list
+     * @param index - index at which the specified element is to be inserted
+     * @param value - value to be inserted
+     * @return true if the value is inserted
+     */
     public boolean add(int index, int value) {
         if (this.head == null || index < 0 || index > this.getSize()) 
             throw new IndexOutOfBoundsException();
@@ -63,6 +93,12 @@ public class Container {
         }
     }
 
+    /**
+     * Replaces the element at the specified position in this list with the specified element
+     * @param index - index of the element to replace
+     * @param value - value to be stored at the specified position
+     * @return the element previously at the specified position
+     */
     public int set(int index, int value)
     {
         int prev_value = 0;
@@ -82,6 +118,11 @@ public class Container {
         return prev_value;     
     }
 
+    /**
+     * Returns the element at the specified position in this list
+     * @param index - index of the element to return
+     * @return the element at the specified position in this list
+     */
     public int get(int index) {
         int value = 0;
         if (this.getHead() == null || index > this.getSize() || index < 0)
@@ -99,10 +140,11 @@ public class Container {
         return value;
     }
 
-    public int pop() {
-        return this.remove(size-1);
-    }
-
+    /**
+     * Removes the element at the specified position in this list. Shifts any subsequent elements to the left
+     * @param index - the index of the element to be removed
+     * @return - the element that was removed from the list
+     */
     public int remove(int index) {
         int value;
         if (this.getHead() == null || index > this.getSize() || index < 0) {
@@ -128,6 +170,17 @@ public class Container {
         return value;
     }
 
+    /**
+     * Returns the element at the last position in this list
+     * @return the element at the last position in this list
+     */
+    public int pop() {
+        return this.remove(size-1);
+    }
+
+    /**
+     * Removes all of the elements from this list. The list will be empty after this call returns
+     */
     public void clear() {
         if (this.getHead() != null && this.getSize() > 0)
         {
@@ -142,6 +195,11 @@ public class Container {
         }
     }
 
+    /**
+     * Returns true if this list contains the specified element
+     * @param value - value whose presence in this list is to be tested
+     * @return true if this list contains the specified element
+     */
     public boolean contains(int value) {
         boolean is_contain = false;
         if (this.getHead() != null && this.getSize() > 0)
@@ -155,6 +213,10 @@ public class Container {
         return is_contain;
     }
 
+    /**
+     * Returns a copy of this list instance
+     * @return a copy of this list instance
+     */
     public Container clone() {
         Container сontainer = new Container();
         Node current = this.head;
@@ -165,6 +227,11 @@ public class Container {
         return сontainer;
     }
 
+    /**
+     * Compares the specified container with this list for equality
+     * @param container - the container to be compared for equality with this list
+     * @return true if the specified container is equal to this list
+     */
     public boolean equals(Container container)
     {
         boolean is_equal = this.getSize() == container.getSize();
@@ -184,6 +251,12 @@ public class Container {
         return is_equal;
     }
 
+
+    /**
+     * Returns the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element
+     * @param value - value to search for
+     * @return the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element
+     */
     public int indexOf(int value)
     {
         int index = -1;
@@ -202,6 +275,11 @@ public class Container {
         return index;
     }
 
+    /**
+     * Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element
+     * @param value - value to search for
+     * @return the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element
+     */
     public int lastIndexOf(int value)
     {
         int index = -1;
@@ -220,10 +298,18 @@ public class Container {
         return index;
     }
 
+    /**
+     * Returns true if this list contains no elements
+     * @return true if this list contains no elements
+     */
     public boolean  isEmpty() {
         return this.size == 0;
     }
 
+    /**
+     * Returns a string representation of this list
+     * @return a string representation of this list
+     */
     @Override
     public String toString() {
         String string = "";
