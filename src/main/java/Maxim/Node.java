@@ -12,7 +12,7 @@ class Node {
 
     /**
      * Constructs a new Node with the specified integer value.
-     * @param value the integer value of the node
+     * @param value - the integer value of the node
     */
     Node(int value) {
         this.value = value;
@@ -21,7 +21,7 @@ class Node {
 
     /**
      * Sets the value of the node to the specified integer.
-     * @param value the integer value to set
+     * @param value - the integer value to set
     */
     public void setValue(int value)
     {
@@ -38,7 +38,7 @@ class Node {
 
     /**
      * Sets the next node that this node points to.
-     * @param next the next node in the linked list
+     * @param next - the next node in the linked list
     */
     public void setNext(Node next) {
         this.next = next;
