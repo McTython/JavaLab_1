@@ -82,6 +82,27 @@ public class Container {
         return prev_value;     
     }
 
+    public int get(int index) {
+        int value = 0;
+        if (this.getHead() == null || index > this.getSize() || index < 0)
+            throw new IndexOutOfBoundsException();
+        else {
+            Node current_node = this.getHead();
+            int current_index = 0;
+            while (current_index != index && current_node != null) {
+                current_index++;
+                current_node = current_node.getNext();
+            }
+            if (current_index == index)
+                value = current_node.getValue();
+        }
+        return value;
+    }
+
+    public int pop() {
+        return this.remove(size-1);
+    }
+
     public int remove(int index) {
         int value;
         if (this.getHead() == null || index > this.getSize() || index < 0) {
@@ -161,23 +182,6 @@ public class Container {
             }
         } 
         return is_equal;
-    }
-
-    public int get(int index) {
-        int value = 0;
-        if (this.getHead() == null || index > this.getSize() || index < 0)
-            throw new IndexOutOfBoundsException();
-        else {
-            Node current_node = this.getHead();
-            int current_index = 0;
-            while (current_index != index && current_node != null) {
-                current_index++;
-                current_node = current_node.getNext();
-            }
-            if (current_index == index)
-                value = current_node.getValue();
-        }
-        return value;
     }
 
     public int indexOf(int value)
