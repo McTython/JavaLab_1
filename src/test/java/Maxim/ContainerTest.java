@@ -131,10 +131,10 @@ public class ContainerTest {
 
     @Test
     void isEmpty() {
-        Container emptyContainer = new Container();
-        Container nonEmptyContainer = new Container();
-        nonEmptyContainer.add(5);
-        assertFalse(nonEmptyContainer.isEmpty());
-        assertTrue(emptyContainer.isEmpty());
+        Container container = new Container();
+        Container empty_container = new Container();
+        empty_container.add(5);
+        assertFalse(container.isEmpty());
+        assertTrue(empty_container.isEmpty());
     }
 }
