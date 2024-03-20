@@ -1,7 +1,7 @@
 /** 
  * Represents a container that holds a linked list of integer values.
  * @autor Максим Есаков
- * @version 1.0
+ * @version 1.1
 */
 package Maxim;
 
