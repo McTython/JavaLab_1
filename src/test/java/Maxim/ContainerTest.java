@@ -133,7 +133,7 @@ public class ContainerTest {
     void isEmpty() {
         Container container = new Container();
         Container empty_container = new Container();
-        empty_container.add(5);
+        container.add(5);
         assertFalse(container.isEmpty());
         assertTrue(empty_container.isEmpty());
     }
