@@ -281,15 +281,11 @@ public class Container {
     private Node getNode(int index)
     {
         Node node = null;
-        int current_index = 0;
         if (!this.isIndexOutOfBounds(index))
         {
             node = this.getHead();
-            while (current_index != index) 
-            {
-                current_index++;
+            for (int i = 0; i < index; i++)
                 node = node.getNext();
-            }
         }
         return node;
     }
@@ -310,13 +306,11 @@ public class Container {
     @Override
     public String toString() {
         String string = "";
-        if (this.head != null) {
+        if (!this.isEmpty()) {
             Node current_node = this.getHead();
-            string += String.format("%s ", current_node.getValue());
-            while (current_node.getNext() != null)
-            {
+            for (int i = 0; i < size; i++) {
+                string += current_node.getValue() + " ";
                 current_node = current_node.getNext();
-                string += String.format("%s ", current_node.getValue());
             }
         }
         return string;
