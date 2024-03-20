@@ -40,5 +40,8 @@ public class App
 
         System.out.println(container.indexOf(5));
         System.out.println(container.lastIndexOf(8));
+       
+        container.clear();
+        new_container.clear();
     }
 }
