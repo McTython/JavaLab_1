@@ -70,23 +70,19 @@ public class Container {
      * @return true if the value is inserted
      */
     public boolean add(int index, int value) {
-        if (this.head == null || index < 0 || index > this.getSize()) 
+        if (this.isIndexOutOfBounds(index)) 
             throw new IndexOutOfBoundsException();
         else
         {
             Node new_node = new Node(value);
             Node current_node = this.getHead();
-            Node prev_node = null;
-            int current_index = 0;
-            while (current_index != index && current_node != null) {
-                current_index++;
-                prev_node = current_node;
-                current_node = current_node.getNext();
-            }
-            if (prev_node == null)
+            if (index == 0) {
                 this.head = new_node;
-            else
-                prev_node.setNext(new_node);
+            } else {
+                Node prev_node = this.getNode(index-1);
+                current_node = prev_node.getNext();
+                prev_node.setNext(new_node); 
+            }
             new_node.setNext(current_node);
             size++;
             return true;
@@ -102,18 +98,13 @@ public class Container {
     public int set(int index, int value)
     {
         int prev_value = 0;
-        if (this.head == null || index < 0 || index > this.getSize()) 
+        if (this.isIndexOutOfBounds(index)) 
             throw new IndexOutOfBoundsException();
         else
         {
-            Node current_node = this.getHead();
-            int current_index = 0;
-            while (current_index != index && current_node != null) {
-                current_index++;
-                current_node = current_node.getNext();
-            }
-            prev_value = current_node.getValue();
-            current_node.setValue(value);
+            Node node = this.getNode(index);
+            prev_value = node.getValue();
+            node.setValue(value);
         }   
         return prev_value;     
     }
@@ -124,20 +115,9 @@ public class Container {
      * @return the element at the specified position in this list
      */
     public int get(int index) {
-        int value = 0;
-        if (this.getHead() == null || index > this.getSize() || index < 0)
+        if (isIndexOutOfBounds(index))
             throw new IndexOutOfBoundsException();
-        else {
-            Node current_node = this.getHead();
-            int current_index = 0;
-            while (current_index != index && current_node != null) {
-                current_index++;
-                current_node = current_node.getNext();
-            }
-            if (current_index == index)
-                value = current_node.getValue();
-        }
-        return value;
+        return this.getNode(index).getValue();
     }
 
     /**
@@ -147,23 +127,19 @@ public class Container {
      */
     public int remove(int index) {
         int value;
-        if (this.getHead() == null || index > this.getSize() || index < 0) {
+        if (this.isIndexOutOfBounds(index)) {
             throw new IndexOutOfBoundsException();
         }
         else
         {
             Node current_node = this.getHead();
-            Node prev_node = null;
-            int current_index = 0;
-            while (current_index != index && current_node != null) {
-                current_index++;
-                prev_node = current_node;
-                current_node = current_node.getNext();
+            if (index == 0) {
+                this.head = size > 1 ? this.head.getNext() : null;
+            } else {
+                Node prev_node = this.getNode(index-1);
+                current_node = prev_node.getNext();
+                prev_node.setNext(current_node.getNext()); 
             }
-            if (prev_node == null)
-                this.head = this.head.getNext();
-            else
-                prev_node.setNext(current_node.getNext());
             size--;
             value = current_node.getValue();
         }
@@ -182,7 +158,7 @@ public class Container {
      * Removes all of the elements from this list. The list will be empty after this call returns
      */
     public void clear() {
-        if (this.getHead() != null && this.getSize() > 0)
+        if (!this.isEmpty())
         {
             Node current = this.getHead();
             while (current != null) {
@@ -201,16 +177,7 @@ public class Container {
      * @return true if this list contains the specified element
      */
     public boolean contains(int value) {
-        boolean is_contain = false;
-        if (this.getHead() != null && this.getSize() > 0)
-        {
-            Node current = this.getHead();
-            while (current != null && current.getValue() != value)
-                current = current.getNext();
-            if (current != null)
-                is_contain = current.getValue() == value;
-        }
-        return is_contain;
+        return this.indexOf(value) == -1 ? false : true;
     }
 
     /**
@@ -260,7 +227,7 @@ public class Container {
     public int indexOf(int value)
     {
         int index = -1;
-        if (this.getHead() != null && this.getSize() > 0)
+        if (!this.isEmpty())
         {
             Node current_node = this.getHead();
             int current_index = 0;
@@ -283,7 +250,7 @@ public class Container {
     public int lastIndexOf(int value)
     {
         int index = -1;
-        if (this.getHead() != null && this.getSize() > 0)
+        if (!this.isEmpty())
         {
             Node current_node = this.getHead();
             int current_index = 0;
@@ -304,6 +271,36 @@ public class Container {
      */
     public boolean  isEmpty() {
         return this.size == 0;
+    }
+
+    /**
+     * Returns the node at the specified index in the linked list.
+     * @param index - index of the node to return
+     * @return the node at the specified index, or null if the index is out of bounds
+     */
+    private Node getNode(int index)
+    {
+        Node node = null;
+        int current_index = 0;
+        if (!this.isIndexOutOfBounds(index))
+        {
+            node = this.getHead();
+            while (current_index != index) 
+            {
+                current_index++;
+                node = node.getNext();
+            }
+        }
+        return node;
+    }
+
+    /**
+     * Checks if the specified index is out of bounds for the linked list.
+     * @param index - index to be checked
+     * @return true if the index is out of bounds, false otherwise 
+     */
+    private boolean isIndexOutOfBounds(int index) {
+        return this.getHead() == null || index >= this.getSize() || index < 0;
     }
 
     /**
